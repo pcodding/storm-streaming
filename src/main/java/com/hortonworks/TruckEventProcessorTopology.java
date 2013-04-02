@@ -39,8 +39,5 @@ public class TruckEventProcessorTopology {
 		LocalCluster cluster = new LocalCluster();
 		cluster.submitTopology("truck-event-processor", conf,
 				builder.createTopology());
-//		Utils.sleep(60000);
-//		cluster.killTopology("truck-event-processor");
-//		cluster.shutdown();
 	}
 }
