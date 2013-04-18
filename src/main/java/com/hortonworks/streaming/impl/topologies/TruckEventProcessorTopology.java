@@ -1,4 +1,4 @@
-package com.hortonworks;
+package com.hortonworks.streaming.impl.topologies;
 
 import javax.jms.Session;
 
@@ -8,7 +8,10 @@ import backtype.storm.contrib.jms.JmsProvider;
 import backtype.storm.contrib.jms.JmsTupleProducer;
 import backtype.storm.contrib.jms.spout.JmsSpout;
 import backtype.storm.topology.TopologyBuilder;
-import backtype.storm.utils.Utils;
+
+import com.hortonworks.streaming.impl.bolts.TruckEventRuleBolt;
+import com.hortonworks.streaming.spouts.JsonTupleProducer;
+import com.hortonworks.streaming.spouts.SpringJmsProvider;
 
 public class TruckEventProcessorTopology {
 	public static final String JMS_QUEUE_SPOUT = "sensor_data_spout";

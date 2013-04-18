@@ -1,4 +1,4 @@
-package com.hortonworks;
+package com.hortonworks.streaming.impl.utils;
 
 import java.util.Properties;
 

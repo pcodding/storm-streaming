@@ -1,13 +1,19 @@
-package com.hortonworks;
+package com.hortonworks.streaming.impl;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.hortonworks.streaming.impl.utils.EventMailer;
 
 public class TruckEventRuleEngine implements Serializable {
 	private static final long serialVersionUID = -5526455911057368428L;
@@ -15,6 +21,25 @@ public class TruckEventRuleEngine implements Serializable {
 			.getLogger(TruckEventRuleEngine.class);
 	public static final int MAX_UNSAFE_EVENTS = 5;
 	public Map<String, LinkedList<String>> driverEvents = new HashMap<String, LinkedList<String>>();
+	String email = "paul@hortonworks.com";
+	String subject = "Unsafe Driving Alert";
+
+	public TruckEventRuleEngine() {
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream("config.properties"));
+			email = prop.getProperty("notification.email");
+			subject = prop.getProperty("notification.subject");
+			logger.info("Initializing rule engine with email: " + email
+					+ " subject: " + subject);
+		} catch (FileNotFoundException e) {
+			logger.error("Encountered error while reading configuration properties: "
+					+ e.getMessage());
+		} catch (IOException e) {
+			logger.error("Encountered error while reading configuration properties: "
+					+ e.getMessage());
+		}
+	}
 
 	public void processEvent(String event) {
 		String[] pieces = event.split("\\|");
@@ -36,12 +61,12 @@ public class TruckEventRuleEngine implements Serializable {
 					for (String unsafeEvent : driverEvents.get(driverId)) {
 						events.append(unsafeEvent + "\n");
 					}
-					EventMailer.sendEmail("paul@hortonworks.com",
-							"paul@hortonworks.com", "Unsafe Driving Alert",
+					EventMailer.sendEmail(email, email, subject,
 							"We've identified 5 unsafe driving events for driver: "
 									+ driverId + "\n\n" + events.toString());
 				} catch (Exception e) {
-					logger.error("Error occured while sending notificaiton email: " + e.getMessage());
+					logger.error("Error occured while sending notificaiton email: "
+							+ e.getMessage());
 				} finally {
 					driverEvents.get(driverId).clear();
 				}

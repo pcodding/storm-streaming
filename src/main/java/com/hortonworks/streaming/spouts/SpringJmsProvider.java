@@ -1,4 +1,4 @@
-package com.hortonworks;
+package com.hortonworks.streaming.spouts;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;

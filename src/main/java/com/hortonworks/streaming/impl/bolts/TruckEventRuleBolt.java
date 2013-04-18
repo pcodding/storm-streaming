@@ -1,4 +1,4 @@
-package com.hortonworks;
+package com.hortonworks.streaming.impl.bolts;
 
 import java.util.Map;
 
@@ -10,6 +10,8 @@ import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.IRichBolt;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Tuple;
+
+import com.hortonworks.streaming.impl.TruckEventRuleEngine;
 
 public class TruckEventRuleBolt implements IRichBolt {
 	private static final Logger logger = LoggerFactory
