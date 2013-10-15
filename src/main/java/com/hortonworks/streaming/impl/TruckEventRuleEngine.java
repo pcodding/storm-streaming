@@ -21,7 +21,7 @@ public class TruckEventRuleEngine implements Serializable {
 			.getLogger(TruckEventRuleEngine.class);
 	public static final int MAX_UNSAFE_EVENTS = 5;
 	public Map<String, LinkedList<String>> driverEvents = new HashMap<String, LinkedList<String>>();
-	String email = "paul@hortonworks.com";
+	String email = "you@yourdomain.com";
 	String subject = "Unsafe Driving Alert";
 
 	public TruckEventRuleEngine() {
