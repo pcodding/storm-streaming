@@ -49,3 +49,15 @@ The `notification.*` are related to the emails sent after the event threshold ha
 ## Running the Project ##
 
 To run the project, just use the `run.sh` shell script to compile and execute the project on a stand-alone machine.
+
+## Simulating Data ##
+
+What's a Storm topology without events?  Not too exciting.  I've created a data simulator that helps with simulating unsafe driving events among other things.  You can find it here, and this is the process to get started:
+
+    git clone https://github.com/pcodding/stream-simulator.git
+
+Edit the `src/main/resources/config.properties` to point to your ActiveMQ installation, then build and run the project:
+
+    mvn clean package
+    ./run.sh 6 -1 com.hortonworks.streaming.impl.domain.transport.Truck com.hortonworks.streaming.impl.collectors.JmsEventCollector
+    
